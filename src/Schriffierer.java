@@ -1,21 +1,37 @@
 
 public class Schriffierer {
 
-	public void schriffierenCA(String text, int schlüssel) {
+	public String schriffierenCA(String text, int key) {
 		
-		String erg = "";
+		String result = "";
 		
-		for (int i = 0; i < text.length(); i = i + 1) {
+		for (int i = 0; i < text.length(); i++) {
 			
-			int x = (int) text.charAt(i);
-			
-			
+			char currentchar = text.charAt(i);
+			int value = (int) currentchar;
+			value = value + key;
+			char newchar = (char) value;
+			result = result + newchar;
 		}
+		
+		return result;
 		
 	}
 	
-	public void deschriffierenCA(String text, int schlüssel) {
+	public String deschriffierenCA(String text, int key) {
 		
+		String result = "";
+		
+		for (int i = 0; i < text.length(); i++) {
+			
+			char currentchar = text.charAt(i);
+			int value = (int) currentchar;
+			value = value - key;
+			char newchar = (char) value;
+			result = result + newchar;
+		}
+		
+		return result;
 		
 	}
 	
