@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="SchriffierenTool:jar">
-    <output-path>$PROJECT_DIR$/classes/artifacts/SchriffierenTool_jar</output-path>
-    <root id="archive" name="SchriffierenTool.jar">
-      <element id="module-output" name="SchriffierenTool" />
-    </root>
-  </artifact>
-</component>
