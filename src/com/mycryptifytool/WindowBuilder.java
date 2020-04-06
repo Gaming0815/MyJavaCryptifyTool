@@ -1,3 +1,5 @@
+package com.mycryptifytool;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
