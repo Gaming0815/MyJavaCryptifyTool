@@ -32,16 +32,26 @@ public class WindowBuilder {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
 		EventQueue.invokeLater(new Runnable() {
+			
 			public void run() {
+				
 				try {
+					
 					WindowBuilder window = new WindowBuilder();
 					window.frmMyCryptifyTool.setVisible(true);
+					
 				} catch (Exception e) {
+					
 					e.printStackTrace();
+					
 				}
+				
 			}
+			
 		});
+		
 	}
 
 	/**
@@ -153,17 +163,26 @@ public class WindowBuilder {
 		 * Event Listeners
 		 */
 		
+		/**
+		 * Enables or Disables the Encrypt/Decrypt Buttons if inputTextArea or keyTextField are emtpy
+		 * 
+		 * Eventlister is attached inputTextArea
+		 */
 		inputTextArea.getDocument().addDocumentListener(new DocumentListener() {
 			
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				
 				if(inputTextArea.getText().trim().equals("") || keyTextField.getText().trim().equals("")) {
+					
 					encryptButton.setEnabled(false);
 					decryptButton.setEnabled(false);
+					
 				} else {
+					
 					encryptButton.setEnabled(true);
 					decryptButton.setEnabled(true);
+					
 				}
 				
 			}
@@ -172,11 +191,16 @@ public class WindowBuilder {
 			public void insertUpdate(DocumentEvent e) {
 				
 				if(inputTextArea.getText().trim().equals("") || keyTextField.getText().trim().equals("")) {
+					
 					encryptButton.setEnabled(false);
 					decryptButton.setEnabled(false);
+					
+					
 				} else {
+					
 					encryptButton.setEnabled(true);
 					decryptButton.setEnabled(true);
+					
 				}
 				
 			}
@@ -184,33 +208,60 @@ public class WindowBuilder {
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				
+				if(inputTextArea.getText().trim().equals("") || keyTextField.getText().trim().equals("")) {
+					
+					encryptButton.setEnabled(false);
+					decryptButton.setEnabled(false);
+					
+					
+				} else {
+					
+					encryptButton.setEnabled(true);
+					decryptButton.setEnabled(true);
+					
+				}
+				
 			}
+			
 		});
 		
+		/**
+		 * Enables or Disables the Encrypt/Decrypt Buttons if inputTextArea or keyTextField are emtpy
+		 * 
+		 * Eventlister is attached keyTextField
+		 */
 		keyTextField.getDocument().addDocumentListener(new DocumentListener() {
 			
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				
 				if(inputTextArea.getText().trim().equals("") || keyTextField.getText().trim().equals("")) {
+					
 					encryptButton.setEnabled(false);
 					decryptButton.setEnabled(false);
+					
 				} else {
+					
 					encryptButton.setEnabled(true);
 					decryptButton.setEnabled(true);
+					
 				}
 				
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-
+				
 				if(inputTextArea.getText().trim().equals("") || keyTextField.getText().trim().equals("")) {
+					
 					encryptButton.setEnabled(false);
 					decryptButton.setEnabled(false);
+					
 				} else {
+					
 					encryptButton.setEnabled(true);
 					decryptButton.setEnabled(true);
+					
 				}
 				
 			}
@@ -218,30 +269,53 @@ public class WindowBuilder {
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				
+				if(inputTextArea.getText().trim().equals("") || keyTextField.getText().trim().equals("")) {
+					
+					encryptButton.setEnabled(false);
+					decryptButton.setEnabled(false);
+					
+				} else {
+					
+					encryptButton.setEnabled(true);
+					decryptButton.setEnabled(true);
+					
+				}
+				
 			}
+			
 		});
 		
-		
+		/**
+		 * Eventlistener on encryptButton
+		 */
 		encryptButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				outputTextArea.setText(crypto.encryptCA(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
+				outputTextArea.setText(crypto.caesarCipherEncrypt(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
 				inputTextArea.setText("");
 				keyTextField.setText("");
 				
 			}
+			
 		});
 		
+		/**
+		 * Eventlistener on decryptButton
+		 */
 		decryptButton.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
 				
-				outputTextArea.setText(crypto.decryptCA(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
+				outputTextArea.setText(crypto.caesarCipherDecrypt(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
 				inputTextArea.setText("");
 				keyTextField.setText("");
-				
 			}
+			
 		});
 		
+		/**
+		 * Consumes everything other than Digits in keyTextField
+		 */
 		keyTextField.addKeyListener(new KeyAdapter() {
 			
 			@Override

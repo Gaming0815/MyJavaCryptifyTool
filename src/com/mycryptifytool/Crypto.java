@@ -8,7 +8,7 @@ public class Crypto {
 	 * @param key
 	 * @return
 	 */
-	public String encryptCA(String text, int key) {
+	public String caesarCipherEncrypt(String text, int key) {
 		
 		String result = "";
 		
@@ -19,6 +19,7 @@ public class Crypto {
 			value = value + key;
 			char newchar = (char) value;
 			result = result + newchar;
+			
 		}
 		
 		return result;
@@ -31,7 +32,7 @@ public class Crypto {
 	 * @param key
 	 * @return
 	 */
-	public String decryptCA(String text, int key) {
+	public String caesarCipherDecrypt(String text, int key) {
 		
 		String result = "";
 		
@@ -42,6 +43,7 @@ public class Crypto {
 			value = value - key;
 			char newchar = (char) value;
 			result = result + newchar;
+			
 		}
 		
 		return result;
