@@ -22,7 +22,7 @@ import javax.swing.JTextField;
 
 public class WindowBuilder {
 
-	private JFrame frmSchriffierentool;
+	private JFrame frmMyCryptifyTool;
 
 	/**
 	 * Launch the application.
@@ -32,7 +32,7 @@ public class WindowBuilder {
 			public void run() {
 				try {
 					WindowBuilder window = new WindowBuilder();
-					window.frmSchriffierentool.setVisible(true);
+					window.frmMyCryptifyTool.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -57,19 +57,19 @@ public class WindowBuilder {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmSchriffierentool = new JFrame();
-		frmSchriffierentool.setTitle("SchriffierenTool");
-		frmSchriffierentool.setResizable(false);
-		frmSchriffierentool.getContentPane().setBackground(Color.WHITE);
-		frmSchriffierentool.getContentPane().setLayout(null);
+		frmMyCryptifyTool = new JFrame();
+		frmMyCryptifyTool.setTitle("MyCryptifyTool");
+		frmMyCryptifyTool.setResizable(false);
+		frmMyCryptifyTool.getContentPane().setBackground(Color.WHITE);
+		frmMyCryptifyTool.getContentPane().setLayout(null);
 		
 		JPanel headlinePanel = new JPanel();
 		headlinePanel.setBounds(10, 11, 869, 54);
 		headlinePanel.setBackground(SystemColor.control);
-		frmSchriffierentool.getContentPane().add(headlinePanel);
+		frmMyCryptifyTool.getContentPane().add(headlinePanel);
 		headlinePanel.setLayout(null);
 		
-		JLabel headlineLabel = new JLabel("SchriffierenTool");
+		JLabel headlineLabel = new JLabel("MyCryptifyTool");
 		headlineLabel.setBackground(Color.WHITE);
 		headlineLabel.setBounds(0, 0, 869, 54);
 		headlineLabel.setFont(new Font("Tahoma", Font.PLAIN, 21));
@@ -78,7 +78,7 @@ public class WindowBuilder {
 		
 		JPanel inputPane = new JPanel();
 		inputPane.setBounds(10, 76, 869, 174);
-		frmSchriffierentool.getContentPane().add(inputPane);
+		frmMyCryptifyTool.getContentPane().add(inputPane);
 		inputPane.setLayout(null);
 		
 		JLabel inputLabel = new JLabel("Input Text");
@@ -94,7 +94,7 @@ public class WindowBuilder {
 		
 		JPanel optionsPane = new JPanel();
 		optionsPane.setBounds(10, 261, 869, 68);
-		frmSchriffierentool.getContentPane().add(optionsPane);
+		frmMyCryptifyTool.getContentPane().add(optionsPane);
 		optionsPane.setLayout(null);
 		
 		JLabel optionsLabel = new JLabel("Options");
@@ -114,7 +114,7 @@ public class WindowBuilder {
 		JPanel outputPanel = new JPanel();
 		outputPanel.setLayout(null);
 		outputPanel.setBounds(10, 419, 869, 174);
-		frmSchriffierentool.getContentPane().add(outputPanel);
+		frmMyCryptifyTool.getContentPane().add(outputPanel);
 		
 		JLabel outputLabel = new JLabel("Output Text");
 		outputLabel.setBounds(10, 11, 849, 14);
@@ -130,7 +130,7 @@ public class WindowBuilder {
 		
 		JPanel keyPanel = new JPanel();
 		keyPanel.setBounds(10, 340, 869, 68);
-		frmSchriffierentool.getContentPane().add(keyPanel);
+		frmMyCryptifyTool.getContentPane().add(keyPanel);
 		keyPanel.setLayout(null);
 		
 		JLabel keyLabel = new JLabel("Your key");
@@ -145,8 +145,8 @@ public class WindowBuilder {
 		keyTextField = new JTextField();
 		keyScrollPane.setViewportView(keyTextField);
 		keyTextField.setColumns(10);
-		frmSchriffierentool.setBounds(100, 100, 908, 646);
-		frmSchriffierentool.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMyCryptifyTool.setBounds(100, 100, 908, 646);
+		frmMyCryptifyTool.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
 		/**
