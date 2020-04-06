@@ -21,7 +21,7 @@ public class Logic {
 	 */
 	public String encryptInputText(String text, int key) {
 		
-		return schriffierenCA(text, key);
+		return encryptCA(text, key);
 		
 	}
 	
@@ -33,18 +33,18 @@ public class Logic {
 	 */
 	public String decryptInputText(String encryptedtext, int key) {
 		
-		return deschriffierenCA(encryptedtext, key);
+		return decryptCA(encryptedtext, key);
 		
 	}
 	
 	
 	/** 
-	 * schriffierenCA
+	 * encryptCA
 	 * @param text
 	 * @param key
 	 * @return
 	 */
-	public String schriffierenCA(String text, int key) {
+	public String encryptCA(String text, int key) {
 		
 		String result = "";
 		
@@ -62,12 +62,12 @@ public class Logic {
 	}
 	
 	/**
-	 * deschriffierenCA
+	 * decryptCA
 	 * @param text
 	 * @param key
 	 * @return
 	 */
-	public String deschriffierenCA(String text, int key) {
+	public String decryptCA(String text, int key) {
 		
 		String result = "";
 		

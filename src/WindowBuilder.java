@@ -157,7 +157,6 @@ public class WindowBuilder {
 			
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
 				
 				if(inputTextArea.getText().trim().equals("") || keyTextField.getText().trim().equals("")) {
 					encryptButton.setEnabled(false);
