@@ -24,7 +24,7 @@ import javax.swing.JTextField;
 
 public class WindowBuilder {
 
-	Logic logic = new Logic();
+	Crypto crypto = new Crypto();
 	private JFrame frmMyCryptifyTool;
 	private JTextField keyTextField;
 
@@ -225,7 +225,7 @@ public class WindowBuilder {
 		encryptButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				outputTextArea.setText(logic.encryptInputText(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
+				outputTextArea.setText(crypto.encryptCA(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
 				inputTextArea.setText("");
 				keyTextField.setText("");
 				
@@ -235,7 +235,7 @@ public class WindowBuilder {
 		decryptButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				outputTextArea.setText(logic.decryptInputText(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
+				outputTextArea.setText(crypto.decryptCA(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
 				inputTextArea.setText("");
 				keyTextField.setText("");
 				
