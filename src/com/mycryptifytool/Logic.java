@@ -4,7 +4,7 @@ package com.mycryptifytool;
 public class Logic {
 
 	WindowBuilder windowbuilder;
-	Crypto crypto;
+	Crypto crypto = new Crypto();
 
 	/**
 	 * Logic
@@ -39,5 +39,7 @@ public class Logic {
 		return crypto.decryptCA(encryptedtext, key);
 		
 	}
+	
+	
 	
 }
