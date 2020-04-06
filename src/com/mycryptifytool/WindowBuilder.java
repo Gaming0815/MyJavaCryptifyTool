@@ -24,7 +24,9 @@ import javax.swing.JTextField;
 
 public class WindowBuilder {
 
+	Logic logic = new Logic();
 	private JFrame frmMyCryptifyTool;
+	private JTextField keyTextField;
 
 	/**
 	 * Launch the application.
@@ -42,17 +44,13 @@ public class WindowBuilder {
 		});
 	}
 
-	Logic logic;
-	private JTextField keyTextField;
-	
 	/**
 	 * Create the application.
 	 */
 	public WindowBuilder() {
+		
 		initialize();
 		
-		logic = new Logic(this);
-			
 	}
 
 	/**

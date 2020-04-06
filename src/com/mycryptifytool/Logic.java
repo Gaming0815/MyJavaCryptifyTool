@@ -3,18 +3,7 @@ package com.mycryptifytool;
 
 public class Logic {
 
-	WindowBuilder windowbuilder;
 	Crypto crypto = new Crypto();
-
-	/**
-	 * Logic
-	 * @param parentWindowBuilder
-	 */
-	public Logic(WindowBuilder parentWindowBuilder) {
-
-		windowbuilder = parentWindowBuilder;
-		
-	}
 	
 	/**
 	 * encryptInputText
