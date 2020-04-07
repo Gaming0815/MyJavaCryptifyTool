@@ -21,6 +21,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import java.awt.Toolkit;
 
 public class WindowBuilder {
 
@@ -68,6 +69,7 @@ public class WindowBuilder {
 	 */
 	private void initialize() {
 		frmMyCryptifyTool = new JFrame();
+		frmMyCryptifyTool.setIconImage(Toolkit.getDefaultToolkit().getImage(WindowBuilder.class.getResource("/com/mycryptifytool/Key.png")));
 		frmMyCryptifyTool.setTitle("MyCryptifyTool");
 		frmMyCryptifyTool.setResizable(false);
 		frmMyCryptifyTool.getContentPane().setBackground(Color.WHITE);
@@ -91,7 +93,7 @@ public class WindowBuilder {
 		frmMyCryptifyTool.getContentPane().add(inputPane);
 		inputPane.setLayout(null);
 		
-		JLabel inputLabel = new JLabel("Input Text");
+		JLabel inputLabel = new JLabel("Your text");
 		inputLabel.setBounds(10, 11, 849, 14);
 		inputPane.add(inputLabel);
 		
@@ -100,26 +102,10 @@ public class WindowBuilder {
 		inputPane.add(inputScrollPane);
 		
 		JTextArea inputTextArea = new JTextArea();
+		inputTextArea.setWrapStyleWord(true);
+		inputTextArea.setToolTipText("The text you want to encrypt or decrypt.");
+		inputTextArea.setLineWrap(true);
 		inputScrollPane.setViewportView(inputTextArea);
-		
-		JPanel optionsPane = new JPanel();
-		optionsPane.setBounds(10, 261, 869, 68);
-		frmMyCryptifyTool.getContentPane().add(optionsPane);
-		optionsPane.setLayout(null);
-		
-		JLabel optionsLabel = new JLabel("Options");
-		optionsLabel.setBounds(10, 11, 849, 14);
-		optionsPane.add(optionsLabel);
-		
-		JButton encryptButton = new JButton("Encrypt");
-		encryptButton.setEnabled(false);
-		encryptButton.setBounds(10, 34, 89, 23);
-		optionsPane.add(encryptButton);
-		
-		JButton decryptButton = new JButton("Decrypt");
-		decryptButton.setEnabled(false);
-		decryptButton.setBounds(109, 34, 89, 23);
-		optionsPane.add(decryptButton);
 		
 		JPanel outputPanel = new JPanel();
 		outputPanel.setLayout(null);
@@ -135,26 +121,73 @@ public class WindowBuilder {
 		outputPanel.add(outputScrollPane);
 		
 		JTextArea outputTextArea = new JTextArea();
+		outputTextArea.setWrapStyleWord(true);
+		outputTextArea.setToolTipText("The encrypted or decrypted text.");
+		outputTextArea.setLineWrap(true);
 		outputTextArea.setEditable(false);
 		outputScrollPane.setViewportView(outputTextArea);
 		
 		JPanel keyPanel = new JPanel();
-		keyPanel.setBounds(10, 340, 869, 68);
+		keyPanel.setBounds(10, 261, 869, 68);
 		frmMyCryptifyTool.getContentPane().add(keyPanel);
 		keyPanel.setLayout(null);
 		
-		JLabel keyLabel = new JLabel("Your key");
+		JLabel keyLabel = new JLabel("Your secret key");
 		keyLabel.setBounds(10, 11, 849, 14);
 		keyPanel.add(keyLabel);
 		
 		JScrollPane keyScrollPane = new JScrollPane();
-		keyScrollPane.setBounds(10, 36, 849, 20);
+		keyScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		keyScrollPane.setBounds(10, 36, 114, 21);
 		keyScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		keyPanel.add(keyScrollPane);
 		
 		keyTextField = new JTextField();
+		keyTextField.setToolTipText("The key to be used to encrypt or decrypt the text.");
 		keyScrollPane.setViewportView(keyTextField);
 		keyTextField.setColumns(10);
+		
+		JPanel optionsPane = new JPanel();
+		optionsPane.setBounds(10, 340, 869, 68);
+		frmMyCryptifyTool.getContentPane().add(optionsPane);
+		optionsPane.setLayout(null);
+		
+		JLabel optionsLabel = new JLabel("Options");
+		optionsLabel.setToolTipText("");
+		optionsLabel.setBounds(10, 11, 849, 14);
+		optionsPane.add(optionsLabel);
+		
+		JButton encryptButton = new JButton("Encrypt");
+		encryptButton.setToolTipText("Encrypts the text with the given key.");
+		encryptButton.setEnabled(false);
+		encryptButton.setBounds(10, 34, 89, 23);
+		optionsPane.add(encryptButton);
+		
+		JButton decryptButton = new JButton("Decrypt");
+		decryptButton.setToolTipText("Decrypts the text with the given key.");
+		decryptButton.setEnabled(false);
+		decryptButton.setBounds(109, 34, 89, 23);
+		optionsPane.add(decryptButton);
+		encryptButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				outputTextArea.setText(crypto.caesarCipherEncrypt(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
+				inputTextArea.setText("");
+				keyTextField.setText("");
+				
+			}
+			
+		});
+		decryptButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				outputTextArea.setText(crypto.caesarCipherDecrypt(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
+				inputTextArea.setText("");
+				keyTextField.setText("");
+			}
+			
+		});
 		frmMyCryptifyTool.setBounds(100, 100, 908, 646);
 		frmMyCryptifyTool.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -288,30 +321,10 @@ public class WindowBuilder {
 		/**
 		 * Eventlistener on encryptButton
 		 */
-		encryptButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				outputTextArea.setText(crypto.caesarCipherEncrypt(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
-				inputTextArea.setText("");
-				keyTextField.setText("");
-				
-			}
-			
-		});
 		
 		/**
 		 * Eventlistener on decryptButton
 		 */
-		decryptButton.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				
-				outputTextArea.setText(crypto.caesarCipherDecrypt(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
-				inputTextArea.setText("");
-				keyTextField.setText("");
-			}
-			
-		});
 		
 		/**
 		 * Consumes everything other than Digits in keyTextField
@@ -323,6 +336,12 @@ public class WindowBuilder {
 				
 				char c = e.getKeyChar();
 				if(!Character.isDigit(c)) {
+					
+					e.consume();
+					
+				}
+				
+				if(keyTextField.getText().length() >= 9) {
 					
 					e.consume();
 					
