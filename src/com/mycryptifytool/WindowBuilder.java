@@ -22,6 +22,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.Toolkit;
+import javax.swing.border.MatteBorder;
 
 public class WindowBuilder {
 
@@ -69,31 +70,36 @@ public class WindowBuilder {
 	 */
 	private void initialize() {
 		frmMyCryptifyTool = new JFrame();
+		frmMyCryptifyTool.setBackground(Color.WHITE);
 		frmMyCryptifyTool.setIconImage(Toolkit.getDefaultToolkit().getImage(WindowBuilder.class.getResource("/com/mycryptifytool/Key.png")));
 		frmMyCryptifyTool.setTitle("MyCryptifyTool");
 		frmMyCryptifyTool.setResizable(false);
-		frmMyCryptifyTool.getContentPane().setBackground(Color.WHITE);
+		frmMyCryptifyTool.getContentPane().setBackground(Color.DARK_GRAY);
 		frmMyCryptifyTool.getContentPane().setLayout(null);
 		
 		JPanel headlinePanel = new JPanel();
 		headlinePanel.setBounds(10, 11, 869, 54);
-		headlinePanel.setBackground(SystemColor.control);
+		headlinePanel.setBackground(Color.DARK_GRAY);
 		frmMyCryptifyTool.getContentPane().add(headlinePanel);
 		headlinePanel.setLayout(null);
 		
 		JLabel headlineLabel = new JLabel("MyCryptifyTool");
+		headlineLabel.setForeground(Color.WHITE);
 		headlineLabel.setBackground(Color.WHITE);
 		headlineLabel.setBounds(0, 0, 869, 54);
-		headlineLabel.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		headlineLabel.setFont(new Font("Arial", Font.PLAIN, 35));
 		headlineLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		headlinePanel.add(headlineLabel);
 		
 		JPanel inputPane = new JPanel();
+		inputPane.setBackground(Color.DARK_GRAY);
 		inputPane.setBounds(10, 76, 869, 174);
 		frmMyCryptifyTool.getContentPane().add(inputPane);
 		inputPane.setLayout(null);
 		
 		JLabel inputLabel = new JLabel("Your text");
+		inputLabel.setFont(new Font("Arial", Font.PLAIN, 13));
+		inputLabel.setForeground(Color.WHITE);
 		inputLabel.setBounds(10, 11, 849, 14);
 		inputPane.add(inputLabel);
 		
@@ -108,11 +114,14 @@ public class WindowBuilder {
 		inputScrollPane.setViewportView(inputTextArea);
 		
 		JPanel outputPanel = new JPanel();
+		outputPanel.setBackground(Color.DARK_GRAY);
 		outputPanel.setLayout(null);
 		outputPanel.setBounds(10, 419, 869, 174);
 		frmMyCryptifyTool.getContentPane().add(outputPanel);
 		
 		JLabel outputLabel = new JLabel("Output Text");
+		outputLabel.setFont(new Font("Arial", Font.PLAIN, 13));
+		outputLabel.setForeground(Color.WHITE);
 		outputLabel.setBounds(10, 11, 849, 14);
 		outputPanel.add(outputLabel);
 		
@@ -128,11 +137,14 @@ public class WindowBuilder {
 		outputScrollPane.setViewportView(outputTextArea);
 		
 		JPanel keyPanel = new JPanel();
+		keyPanel.setBackground(Color.DARK_GRAY);
 		keyPanel.setBounds(10, 261, 869, 68);
 		frmMyCryptifyTool.getContentPane().add(keyPanel);
 		keyPanel.setLayout(null);
 		
 		JLabel keyLabel = new JLabel("Your secret key");
+		keyLabel.setFont(new Font("Arial", Font.PLAIN, 13));
+		keyLabel.setForeground(Color.WHITE);
 		keyLabel.setBounds(10, 11, 849, 14);
 		keyPanel.add(keyLabel);
 		
@@ -148,22 +160,31 @@ public class WindowBuilder {
 		keyTextField.setColumns(10);
 		
 		JPanel optionsPane = new JPanel();
+		optionsPane.setBackground(Color.DARK_GRAY);
 		optionsPane.setBounds(10, 340, 869, 68);
 		frmMyCryptifyTool.getContentPane().add(optionsPane);
 		optionsPane.setLayout(null);
 		
 		JLabel optionsLabel = new JLabel("Options");
+		optionsLabel.setFont(new Font("Arial", Font.PLAIN, 13));
+		optionsLabel.setForeground(Color.WHITE);
 		optionsLabel.setToolTipText("");
 		optionsLabel.setBounds(10, 11, 849, 14);
 		optionsPane.add(optionsLabel);
 		
 		JButton encryptButton = new JButton("Encrypt");
+		encryptButton.setFont(new Font("Arial", Font.PLAIN, 13));
+		encryptButton.setBackground(Color.WHITE);
+		encryptButton.setForeground(Color.BLACK);
 		encryptButton.setToolTipText("Encrypts the text with the given key.");
 		encryptButton.setEnabled(false);
 		encryptButton.setBounds(10, 34, 89, 23);
 		optionsPane.add(encryptButton);
 		
 		JButton decryptButton = new JButton("Decrypt");
+		decryptButton.setFont(new Font("Arial", Font.PLAIN, 13));
+		decryptButton.setBackground(Color.WHITE);
+		decryptButton.setForeground(Color.BLACK);
 		decryptButton.setToolTipText("Decrypts the text with the given key.");
 		decryptButton.setEnabled(false);
 		decryptButton.setBounds(109, 34, 89, 23);
