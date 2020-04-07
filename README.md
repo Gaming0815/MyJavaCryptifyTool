@@ -1,3 +1,3 @@
 # MyCryptifyTool
 
-This Tool allows you to en - and decrypt given text usung various methods.
+This Tool allows you to en - and decrypt given text using the caesar cipher.
