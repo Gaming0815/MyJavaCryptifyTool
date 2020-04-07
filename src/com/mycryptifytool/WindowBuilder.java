@@ -15,14 +15,12 @@ import javax.swing.event.DocumentListener;
 import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.Toolkit;
-import javax.swing.border.MatteBorder;
 
 public class WindowBuilder {
 
