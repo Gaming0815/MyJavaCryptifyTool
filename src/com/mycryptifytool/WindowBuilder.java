@@ -146,16 +146,11 @@ public class WindowBuilder {
 		keyLabel.setBounds(10, 11, 849, 14);
 		keyPanel.add(keyLabel);
 		
-		JScrollPane keyScrollPane = new JScrollPane();
-		keyScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		keyScrollPane.setBounds(10, 36, 114, 21);
-		keyScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-		keyPanel.add(keyScrollPane);
-		
 		keyTextField = new JTextField();
 		keyTextField.setToolTipText("The key to be used to encrypt or decrypt the text.");
-		keyScrollPane.setViewportView(keyTextField);
+		keyTextField.setBounds(10, 36, 114, 21);
 		keyTextField.setColumns(10);
+		keyPanel.add(keyTextField);
 		
 		JPanel optionsPane = new JPanel();
 		optionsPane.setBackground(Color.DARK_GRAY);
