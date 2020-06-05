@@ -355,7 +355,7 @@ public class WindowBuilder {
 					
 				}
 				
-				if(keyTextField.getText().length() >= 9) {
+				if(keyTextField.getText().length() >= 6) {
 					
 					e.consume();
 					
