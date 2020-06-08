@@ -14,7 +14,6 @@ import javax.swing.event.DocumentListener;
 
 import java.awt.Font;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
