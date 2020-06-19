@@ -23,7 +23,6 @@ import java.awt.Toolkit;
 
 public class WindowBuilder {
 
-	Crypto crypto = new Crypto();
 	private JFrame frmMyCryptifyTool;
 	private JTextField keyTextField;
 
@@ -184,7 +183,7 @@ public class WindowBuilder {
 		encryptButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				outputTextArea.setText(crypto.caesarCipherEncrypt(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
+				outputTextArea.setText(Crypto.encryptCaesarCipher(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
 				inputTextArea.setText("");
 				keyTextField.setText("");
 				
@@ -195,7 +194,7 @@ public class WindowBuilder {
 			
 			public void actionPerformed(ActionEvent e) {
 				
-				outputTextArea.setText(crypto.caesarCipherDecrypt(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
+				outputTextArea.setText(Crypto.decryptCaesarCipher(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
 				inputTextArea.setText("");
 				keyTextField.setText("");
 			}
