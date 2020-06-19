@@ -137,7 +137,7 @@ public class WindowBuilder {
 		
 		JPanel keyPanel = new JPanel();
 		keyPanel.setFont(new Font("Arial", Font.PLAIN, 11));
-		keyPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "2. Your secret key (Only numbers!)", TitledBorder.LEADING, TitledBorder.TOP, null, Color.DARK_GRAY));
+		keyPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "2. Your secret key", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(64, 64, 64)));
 		keyPanel.setBackground(Color.LIGHT_GRAY);
 		keyPanel.setBounds(10, 261, 869, 54);
 		frmMyCryptifyTool.getContentPane().add(keyPanel);
@@ -199,9 +199,34 @@ public class WindowBuilder {
 				
 				if(caesarCipherRadioButton.isSelected() == true) {
 					
-					outputTextArea.setText(Crypto.encryptCaesarCipher(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
-					inputTextArea.setText("");
-					keyTextField.setText("");
+					Boolean isDigit = false;
+					
+					for(int i = 0; i < keyTextField.getText().length(); i++) {
+						
+						if(Character.isDigit(keyTextField.getText().charAt(i))) {
+							
+							isDigit = true;
+							
+						} else {
+							
+							isDigit = false;
+							break;
+							
+						}
+						
+					}
+										
+					if(isDigit == true) {
+						
+						outputTextArea.setText(Crypto.encryptCaesarCipher(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
+						inputTextArea.setText("");
+						keyTextField.setText("");
+					
+					} else {
+						
+						JOptionPane.showMessageDialog(frmMyCryptifyTool, "The caesar cipher does only allow numbers to be used as a key", null, JOptionPane.ERROR_MESSAGE);
+						
+					}					
 					
 				} else if(polyalphabeticRadioButton.isSelected() == true) {
 					
@@ -224,9 +249,34 @@ public class WindowBuilder {
 				
 				if(caesarCipherRadioButton.isSelected() == true) {
 					
-					outputTextArea.setText(Crypto.decryptCaesarCipher(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
-					inputTextArea.setText("");
-					keyTextField.setText("");
+					Boolean isDigit = false;
+					
+					for(int i = 0; i < keyTextField.getText().length(); i++) {
+						
+						if(Character.isDigit(keyTextField.getText().charAt(i))) {
+							
+							isDigit = true;
+							
+						} else {
+							
+							isDigit = false;
+							break;
+							
+						}
+						
+					}
+										
+					if(isDigit == true) {
+						
+						outputTextArea.setText(Crypto.decryptCaesarCipher(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
+						inputTextArea.setText("");
+						keyTextField.setText("");
+					
+					} else {
+						
+						JOptionPane.showMessageDialog(frmMyCryptifyTool, "The caesar cipher does only allow numbers to be used as a key", null, JOptionPane.ERROR_MESSAGE);
+						
+					}
 					
 				} else if(polyalphabeticRadioButton.isSelected() == true) {
 					
@@ -376,7 +426,7 @@ public class WindowBuilder {
 		/**
 		 * Consumes everything other than Digits in keyTextField
 		 */
-		keyTextField.addKeyListener(new KeyAdapter() {
+		/*keyTextField.addKeyListener(new KeyAdapter() {
 			
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -396,7 +446,7 @@ public class WindowBuilder {
 				
 			}
 			
-		});
+		});*/
 		
 		/*
 		 * Checks what radio button is selected and disables the other one
@@ -404,11 +454,13 @@ public class WindowBuilder {
 		caesarCipherRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				caesarCipherRadioButton.setSelected(true);
+				
 				if(caesarCipherRadioButton.isSelected() == true) {
 					
 					polyalphabeticRadioButton.setSelected(false);
 					
-				}
+				} 
 				
 			}
 		});
@@ -416,11 +468,13 @@ public class WindowBuilder {
 		polyalphabeticRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				polyalphabeticRadioButton.setSelected(true);
+				
 				if(polyalphabeticRadioButton.isSelected() == true) {
 					
 					caesarCipherRadioButton.setSelected(false);
 					
-				}
+				} 
 				
 			}
 		});
