@@ -16,8 +16,6 @@ import javax.swing.event.DocumentListener;
 import java.awt.Font;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.Toolkit;
@@ -422,31 +420,6 @@ public class WindowBuilder {
 			}
 			
 		});
-		
-		/**
-		 * Consumes everything other than Digits in keyTextField
-		 */
-		/*keyTextField.addKeyListener(new KeyAdapter() {
-			
-			@Override
-			public void keyTyped(KeyEvent e) {
-				
-				char c = e.getKeyChar();
-				if(!Character.isDigit(c)) {
-					
-					e.consume();
-					
-				}
-				
-				if(keyTextField.getText().length() >= 6) {
-					
-					e.consume();
-					
-				}
-				
-			}
-			
-		});*/
 		
 		/*
 		 * Checks what radio button is selected and disables the other one
