@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.SwingConstants;
@@ -20,6 +21,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.Toolkit;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
+import java.awt.ComponentOrientation;
+import javax.swing.JRadioButton;
 
 public class WindowBuilder {
 
@@ -70,17 +75,18 @@ public class WindowBuilder {
 		frmMyCryptifyTool.setIconImage(Toolkit.getDefaultToolkit().getImage(WindowBuilder.class.getResource("/com/mycryptifytool/Key.png")));
 		frmMyCryptifyTool.setTitle("MyCryptifyTool");
 		frmMyCryptifyTool.setResizable(false);
-		frmMyCryptifyTool.getContentPane().setBackground(Color.DARK_GRAY);
+		frmMyCryptifyTool.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frmMyCryptifyTool.getContentPane().setLayout(null);
 		
 		JPanel headlinePanel = new JPanel();
 		headlinePanel.setBounds(10, 11, 869, 54);
-		headlinePanel.setBackground(Color.DARK_GRAY);
+		headlinePanel.setBackground(Color.LIGHT_GRAY);
 		frmMyCryptifyTool.getContentPane().add(headlinePanel);
 		headlinePanel.setLayout(null);
 		
 		JLabel headlineLabel = new JLabel("MyCryptifyTool");
-		headlineLabel.setForeground(Color.WHITE);
+		headlineLabel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		headlineLabel.setForeground(Color.DARK_GRAY);
 		headlineLabel.setBackground(Color.WHITE);
 		headlineLabel.setBounds(0, 0, 869, 54);
 		headlineLabel.setFont(new Font("Arial", Font.PLAIN, 35));
@@ -88,44 +94,41 @@ public class WindowBuilder {
 		headlinePanel.add(headlineLabel);
 		
 		JPanel inputPane = new JPanel();
-		inputPane.setBackground(Color.DARK_GRAY);
+		inputPane.setAutoscrolls(true);
+		inputPane.setFont(new Font("Arial", Font.PLAIN, 11));
+		inputPane.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "1. Your text input", TitledBorder.LEADING, TitledBorder.TOP, null, Color.DARK_GRAY));
+		inputPane.setBackground(Color.LIGHT_GRAY);
 		inputPane.setBounds(10, 76, 869, 174);
 		frmMyCryptifyTool.getContentPane().add(inputPane);
 		inputPane.setLayout(null);
 		
-		JLabel inputLabel = new JLabel("Your text");
-		inputLabel.setFont(new Font("Arial", Font.PLAIN, 13));
-		inputLabel.setForeground(Color.WHITE);
-		inputLabel.setBounds(10, 11, 849, 14);
-		inputPane.add(inputLabel);
-		
 		JScrollPane inputScrollPane = new JScrollPane();
-		inputScrollPane.setBounds(10, 37, 849, 126);
+		inputScrollPane.setBounds(10, 21, 849, 142);
 		inputPane.add(inputScrollPane);
 		
 		JTextArea inputTextArea = new JTextArea();
+		inputTextArea.setFont(new Font("Arial", Font.PLAIN, 13));
+		inputTextArea.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		inputTextArea.setWrapStyleWord(true);
 		inputTextArea.setToolTipText("The text you want to encrypt or decrypt.");
 		inputTextArea.setLineWrap(true);
 		inputScrollPane.setViewportView(inputTextArea);
 		
 		JPanel outputPanel = new JPanel();
-		outputPanel.setBackground(Color.DARK_GRAY);
+		outputPanel.setFont(new Font("Arial", Font.PLAIN, 11));
+		outputPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "4. En-/Decrypted text output", TitledBorder.LEADING, TitledBorder.TOP, null, Color.DARK_GRAY));
+		outputPanel.setBackground(Color.LIGHT_GRAY);
 		outputPanel.setLayout(null);
 		outputPanel.setBounds(10, 419, 869, 174);
 		frmMyCryptifyTool.getContentPane().add(outputPanel);
 		
-		JLabel outputLabel = new JLabel("Output Text");
-		outputLabel.setFont(new Font("Arial", Font.PLAIN, 13));
-		outputLabel.setForeground(Color.WHITE);
-		outputLabel.setBounds(10, 11, 849, 14);
-		outputPanel.add(outputLabel);
-		
 		JScrollPane outputScrollPane = new JScrollPane();
-		outputScrollPane.setBounds(10, 37, 849, 126);
+		outputScrollPane.setFont(new Font("Arial", Font.PLAIN, 11));
+		outputScrollPane.setBounds(10, 25, 849, 138);
 		outputPanel.add(outputScrollPane);
 		
 		JTextArea outputTextArea = new JTextArea();
+		outputTextArea.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		outputTextArea.setWrapStyleWord(true);
 		outputTextArea.setToolTipText("The encrypted or decrypted text.");
 		outputTextArea.setLineWrap(true);
@@ -133,59 +136,84 @@ public class WindowBuilder {
 		outputScrollPane.setViewportView(outputTextArea);
 		
 		JPanel keyPanel = new JPanel();
-		keyPanel.setBackground(Color.DARK_GRAY);
-		keyPanel.setBounds(10, 261, 869, 68);
+		keyPanel.setFont(new Font("Arial", Font.PLAIN, 11));
+		keyPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "2. Your secret key (Only numbers!)", TitledBorder.LEADING, TitledBorder.TOP, null, Color.DARK_GRAY));
+		keyPanel.setBackground(Color.LIGHT_GRAY);
+		keyPanel.setBounds(10, 261, 869, 54);
 		frmMyCryptifyTool.getContentPane().add(keyPanel);
 		keyPanel.setLayout(null);
 		
-		JLabel keyLabel = new JLabel("Your secret key");
-		keyLabel.setFont(new Font("Arial", Font.PLAIN, 13));
-		keyLabel.setForeground(Color.WHITE);
-		keyLabel.setBounds(10, 11, 849, 14);
-		keyPanel.add(keyLabel);
-		
 		keyTextField = new JTextField();
+		keyTextField.setFont(new Font("Arial", Font.PLAIN, 11));
+		keyTextField.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		keyTextField.setToolTipText("The key to be used to encrypt or decrypt the text.");
-		keyTextField.setBounds(10, 36, 114, 21);
+		keyTextField.setBounds(10, 23, 114, 21);
 		keyTextField.setColumns(10);
 		keyPanel.add(keyTextField);
 		
 		JPanel optionsPane = new JPanel();
-		optionsPane.setBackground(Color.DARK_GRAY);
-		optionsPane.setBounds(10, 340, 869, 68);
+		optionsPane.setFont(new Font("Arial", Font.PLAIN, 11));
+		optionsPane.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "3. Options", TitledBorder.LEADING, TitledBorder.TOP, null, Color.DARK_GRAY));
+		optionsPane.setBackground(Color.LIGHT_GRAY);
+		optionsPane.setBounds(10, 326, 869, 82);
 		frmMyCryptifyTool.getContentPane().add(optionsPane);
 		optionsPane.setLayout(null);
-		
-		JLabel optionsLabel = new JLabel("Options");
-		optionsLabel.setFont(new Font("Arial", Font.PLAIN, 13));
-		optionsLabel.setForeground(Color.WHITE);
-		optionsLabel.setToolTipText("");
-		optionsLabel.setBounds(10, 11, 849, 14);
-		optionsPane.add(optionsLabel);
 		
 		JButton encryptButton = new JButton("Encrypt");
 		encryptButton.setFont(new Font("Arial", Font.PLAIN, 13));
 		encryptButton.setBackground(Color.WHITE);
-		encryptButton.setForeground(Color.BLACK);
+		encryptButton.setForeground(Color.DARK_GRAY);
 		encryptButton.setToolTipText("Encrypts the text with the given key.");
 		encryptButton.setEnabled(false);
-		encryptButton.setBounds(10, 34, 89, 23);
+		encryptButton.setBounds(142, 34, 89, 23);
 		optionsPane.add(encryptButton);
 		
 		JButton decryptButton = new JButton("Decrypt");
 		decryptButton.setFont(new Font("Arial", Font.PLAIN, 13));
 		decryptButton.setBackground(Color.WHITE);
-		decryptButton.setForeground(Color.BLACK);
+		decryptButton.setForeground(Color.DARK_GRAY);
 		decryptButton.setToolTipText("Decrypts the text with the given key.");
 		decryptButton.setEnabled(false);
-		decryptButton.setBounds(109, 34, 89, 23);
+		decryptButton.setBounds(241, 34, 89, 23);
 		optionsPane.add(decryptButton);
+		
+		JRadioButton caesarCipherRadioButton = new JRadioButton("Caesar cipher");
+		
+		caesarCipherRadioButton.setToolTipText("Use the caesar cipher");
+		caesarCipherRadioButton.setForeground(Color.DARK_GRAY);
+		caesarCipherRadioButton.setBackground(Color.LIGHT_GRAY);
+		caesarCipherRadioButton.setFont(new Font("Arial", Font.PLAIN, 13));
+		caesarCipherRadioButton.setBounds(16, 23, 109, 23);
+		optionsPane.add(caesarCipherRadioButton);
+		
+		JRadioButton polyalphabeticRadioButton = new JRadioButton("Polyalphabetic");
+		
+		polyalphabeticRadioButton.setToolTipText("Use polyalphabetic encryption");
+		polyalphabeticRadioButton.setForeground(Color.DARK_GRAY);
+		polyalphabeticRadioButton.setBackground(Color.LIGHT_GRAY);
+		polyalphabeticRadioButton.setFont(new Font("Arial", Font.PLAIN, 13));
+		polyalphabeticRadioButton.setBounds(16, 49, 120, 23);
+		optionsPane.add(polyalphabeticRadioButton);
 		encryptButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				outputTextArea.setText(Crypto.encryptCaesarCipher(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
-				inputTextArea.setText("");
-				keyTextField.setText("");
+				if(caesarCipherRadioButton.isSelected() == true) {
+					
+					outputTextArea.setText(Crypto.encryptCaesarCipher(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
+					inputTextArea.setText("");
+					keyTextField.setText("");
+					
+				} else if(polyalphabeticRadioButton.isSelected() == true) {
+					
+					outputTextArea.setText(Crypto.encryptPolyalphabetic(inputTextArea.getText().trim(), keyTextField.getText()));
+					inputTextArea.setText("");
+					keyTextField.setText("");
+					
+				} else {
+					
+					JOptionPane.showMessageDialog(frmMyCryptifyTool, "Please choose an En-/Decryption method!", null, JOptionPane.ERROR_MESSAGE);
+					
+				}
 				
 			}
 			
@@ -194,9 +222,24 @@ public class WindowBuilder {
 			
 			public void actionPerformed(ActionEvent e) {
 				
-				outputTextArea.setText(Crypto.decryptCaesarCipher(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
-				inputTextArea.setText("");
-				keyTextField.setText("");
+				if(caesarCipherRadioButton.isSelected() == true) {
+					
+					outputTextArea.setText(Crypto.decryptCaesarCipher(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
+					inputTextArea.setText("");
+					keyTextField.setText("");
+					
+				} else if(polyalphabeticRadioButton.isSelected() == true) {
+					
+					outputTextArea.setText(Crypto.decryptPolyalphabetic(inputTextArea.getText().trim(), keyTextField.getText()));
+					inputTextArea.setText("");
+					keyTextField.setText("");
+					
+				} else {
+					
+					JOptionPane.showMessageDialog(frmMyCryptifyTool, "Please choose an En-/Decryption method!", null, JOptionPane.ERROR_MESSAGE);
+					
+				}
+				
 			}
 			
 		});
@@ -331,14 +374,6 @@ public class WindowBuilder {
 		});
 		
 		/**
-		 * Eventlistener on encryptButton
-		 */
-		
-		/**
-		 * Eventlistener on decryptButton
-		 */
-		
-		/**
 		 * Consumes everything other than Digits in keyTextField
 		 */
 		keyTextField.addKeyListener(new KeyAdapter() {
@@ -363,7 +398,32 @@ public class WindowBuilder {
 			
 		});
 		
+		/*
+		 * Checks what radio button is selected and disables the other one
+		 */
+		caesarCipherRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(caesarCipherRadioButton.isSelected() == true) {
+					
+					polyalphabeticRadioButton.setSelected(false);
+					
+				}
+				
+			}
+		});
+		
+		polyalphabeticRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(polyalphabeticRadioButton.isSelected() == true) {
+					
+					caesarCipherRadioButton.setSelected(false);
+					
+				}
+				
+			}
+		});
+		
 	}
-	
-	
 }
