@@ -16,6 +16,8 @@ import javax.swing.event.DocumentListener;
 import java.awt.Font;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.Toolkit;
@@ -23,6 +25,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.ComponentOrientation;
 import javax.swing.JRadioButton;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class WindowBuilder {
 
@@ -148,6 +152,13 @@ public class WindowBuilder {
 		keyTextField.setBounds(10, 23, 114, 21);
 		keyTextField.setColumns(10);
 		keyPanel.add(keyTextField);
+		
+		JLabel keyToLongWarningLabel = new JLabel("Max length for key is 6");
+		keyToLongWarningLabel.setVisible(false);
+		keyToLongWarningLabel.setFont(new Font("Arial", Font.PLAIN, 11));
+		keyToLongWarningLabel.setForeground(Color.RED);
+		keyToLongWarningLabel.setBounds(131, 26, 114, 14);
+		keyPanel.add(keyToLongWarningLabel);
 		
 		JPanel optionsPane = new JPanel();
 		optionsPane.setFont(new Font("Arial", Font.PLAIN, 11));
@@ -448,6 +459,39 @@ public class WindowBuilder {
 					caesarCipherRadioButton.setSelected(false);
 					
 				} 
+				
+			}
+		});
+		
+		/**
+		 * Consumes everything thats longer than 6 chars
+		 */
+		keyTextField.addKeyListener(new KeyAdapter() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+							
+				keyToLongWarningLabel.setVisible(false);
+				if(keyTextField.getText().length() > 5) {
+					
+					e.consume();
+					keyToLongWarningLabel.setVisible(true);
+					
+				}
+				
+			}
+			
+		});
+		
+		keyTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				if(keyToLongWarningLabel.isVisible()) {
+					
+					keyToLongWarningLabel.setVisible(false);
+					
+				}
 				
 			}
 		});
