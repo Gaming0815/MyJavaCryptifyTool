@@ -1,6 +1,6 @@
 # MyJavaCryptifyTool
 
-This Tool allows you to en- and decrypt given text using the caesar cipher.
+This Tool allows you to en- and decrypt given text using the caesar or polyalphabetic cipher.
 
 ## What you need
 
