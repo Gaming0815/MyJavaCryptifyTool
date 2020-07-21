@@ -21,12 +21,21 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.dnd.DropTargetEvent;
+import java.awt.dnd.DropTargetListener;
+
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.ComponentOrientation;
@@ -45,38 +54,23 @@ public class WindowBuilder {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		
-		
-		
-		
 		EventQueue.invokeLater(new Runnable() {
-			
 			public void run() {
-				
 				try {
-					
 					WindowBuilder window = new WindowBuilder();
 					window.frmMyCryptifyTool.setVisible(true);
-					
 				} catch (Exception e) {
-					
 					e.printStackTrace();
-					
 				}
-				
 			}
-			
 		});
-		
 	}
 
 	/**
 	 * Create the application.
 	 */
 	public WindowBuilder() {
-		
 		initialize();
-		
 	}
 
 	/**
@@ -198,7 +192,6 @@ public class WindowBuilder {
 		optionsPane.add(decryptButton);
 		
 		JRadioButton caesarCipherRadioButton = new JRadioButton("Caesar cipher");
-		
 		caesarCipherRadioButton.setToolTipText("Use the caesar cipher");
 		caesarCipherRadioButton.setForeground(Color.DARK_GRAY);
 		caesarCipherRadioButton.setBackground(Color.LIGHT_GRAY);
@@ -207,7 +200,6 @@ public class WindowBuilder {
 		optionsPane.add(caesarCipherRadioButton);
 		
 		JRadioButton polyalphabeticRadioButton = new JRadioButton("Polyalphabetic");
-		
 		polyalphabeticRadioButton.setToolTipText("Use polyalphabetic encryption");
 		polyalphabeticRadioButton.setForeground(Color.DARK_GRAY);
 		polyalphabeticRadioButton.setBackground(Color.LIGHT_GRAY);
@@ -234,6 +226,7 @@ public class WindowBuilder {
 		frmMyCryptifyTool.setBounds(100, 100, 890, 664);
 		frmMyCryptifyTool.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		enableDragAndDrop();
 		
 		/*
 		 * Event Listeners
@@ -242,104 +235,63 @@ public class WindowBuilder {
 		// Encrypt inputtext on encryptButton press
 				encryptButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
 						if(caesarCipherRadioButton.isSelected() == true) {
-							
 							Boolean isDigit = false;
-							
 							for(int i = 0; i < keyTextField.getText().length(); i++) {
-								
 								if(Character.isDigit(keyTextField.getText().charAt(i))) {
-									
 									isDigit = true;
-									
 								} else {
-									
 									isDigit = false;
 									break;
-									
 								}
-								
 							}
 												
 							if(isDigit == true) {
-								
 								outputTextArea.setText(Crypto.encryptCaesarCipher(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
 								inputTextArea.setText("");
 								keyTextField.setText("");
-							
 							} else {
-								
 								JOptionPane.showMessageDialog(frmMyCryptifyTool, "The caesar cipher does only allow numbers to be used as a key", null, JOptionPane.ERROR_MESSAGE);
-								
 							}					
 							
 						} else if(polyalphabeticRadioButton.isSelected() == true) {
-							
 							outputTextArea.setText(Crypto.encryptPolyalphabetic(inputTextArea.getText().trim(), keyTextField.getText()));
 							inputTextArea.setText("");
 							keyTextField.setText("");
-							
 						} else {
-							
 							JOptionPane.showMessageDialog(frmMyCryptifyTool, "Please choose an En-/Decryption method!", null, JOptionPane.ERROR_MESSAGE);
-							
 						}
-						
 					}
-					
 				});
 				
 				// Decrypt inputtext on decryptButton press
 				decryptButton.addActionListener(new ActionListener() {
-					
 					public void actionPerformed(ActionEvent e) {
-						
 						if(caesarCipherRadioButton.isSelected() == true) {
-							
 							Boolean isDigit = false;
-							
 							for(int i = 0; i < keyTextField.getText().length(); i++) {
-								
 								if(Character.isDigit(keyTextField.getText().charAt(i))) {
-									
 									isDigit = true;
-									
 								} else {
-									
 									isDigit = false;
 									break;
-									
 								}
-								
 							}
-												
 							if(isDigit == true) {
-								
 								outputTextArea.setText(Crypto.decryptCaesarCipher(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
 								inputTextArea.setText("");
 								keyTextField.setText("");
-							
 							} else {
-								
 								JOptionPane.showMessageDialog(frmMyCryptifyTool, "The caesar cipher does only allow numbers to be used as a key", null, JOptionPane.ERROR_MESSAGE);
-								
 							}
-							
 						} else if(polyalphabeticRadioButton.isSelected() == true) {
-							
 							outputTextArea.setText(Crypto.decryptPolyalphabetic(inputTextArea.getText().trim(), keyTextField.getText()));
 							inputTextArea.setText("");
 							keyTextField.setText("");
-							
 						} else {
-							
 							JOptionPane.showMessageDialog(frmMyCryptifyTool, "Please choose an En-/Decryption method!", null, JOptionPane.ERROR_MESSAGE);
-							
 						}
-						
 					}
-					
 				});
 		
 		/*
@@ -348,60 +300,36 @@ public class WindowBuilder {
 		 * Eventlister is attached inputTextArea
 		 */
 		inputTextArea.getDocument().addDocumentListener(new DocumentListener() {
-			
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				
 				if(inputTextArea.getText().trim().equals("") || keyTextField.getText().trim().equals("")) {
-					
 					encryptButton.setEnabled(false);
 					decryptButton.setEnabled(false);
-					
 				} else {
-					
 					encryptButton.setEnabled(true);
 					decryptButton.setEnabled(true);
-					
 				}
-				
 			}
-			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				
 				if(inputTextArea.getText().trim().equals("") || keyTextField.getText().trim().equals("")) {
-					
 					encryptButton.setEnabled(false);
 					decryptButton.setEnabled(false);
-					
-					
 				} else {
-					
 					encryptButton.setEnabled(true);
 					decryptButton.setEnabled(true);
-					
 				}
-				
 			}
-			
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				
 				if(inputTextArea.getText().trim().equals("") || keyTextField.getText().trim().equals("")) {
-					
 					encryptButton.setEnabled(false);
 					decryptButton.setEnabled(false);
-					
-					
 				} else {
-					
 					encryptButton.setEnabled(true);
 					decryptButton.setEnabled(true);
-					
 				}
-				
 			}
-			
 		});
 		
 		/*
@@ -410,58 +338,36 @@ public class WindowBuilder {
 		 * Eventlister is attached keyTextField
 		 */
 		keyTextField.getDocument().addDocumentListener(new DocumentListener() {
-			
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				
 				if(inputTextArea.getText().trim().equals("") || keyTextField.getText().trim().equals("")) {
-					
 					encryptButton.setEnabled(false);
 					decryptButton.setEnabled(false);
-					
 				} else {
-					
 					encryptButton.setEnabled(true);
 					decryptButton.setEnabled(true);
-					
 				}
-				
 			}
-			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				
 				if(inputTextArea.getText().trim().equals("") || keyTextField.getText().trim().equals("")) {
-					
 					encryptButton.setEnabled(false);
 					decryptButton.setEnabled(false);
-					
 				} else {
-					
 					encryptButton.setEnabled(true);
 					decryptButton.setEnabled(true);
-					
 				}
-				
 			}
-			
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				
 				if(inputTextArea.getText().trim().equals("") || keyTextField.getText().trim().equals("")) {
-					
 					encryptButton.setEnabled(false);
 					decryptButton.setEnabled(false);
-					
 				} else {
-					
 					encryptButton.setEnabled(true);
 					decryptButton.setEnabled(true);
-					
 				}
-				
 			}
-			
 		});
 		
 		/*
@@ -469,29 +375,19 @@ public class WindowBuilder {
 		 */
 		caesarCipherRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				caesarCipherRadioButton.setSelected(true);
-				
 				if(caesarCipherRadioButton.isSelected() == true) {
-					
 					polyalphabeticRadioButton.setSelected(false);
-					
 				} 
-				
 			}
 		});
 		
 		polyalphabeticRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				polyalphabeticRadioButton.setSelected(true);
-				
 				if(polyalphabeticRadioButton.isSelected() == true) {
-					
 					caesarCipherRadioButton.setSelected(false);
-					
 				} 
-				
 			}
 		});
 		
@@ -499,43 +395,31 @@ public class WindowBuilder {
 		 * Consumes everything thats longer than 6 chars and shows warning message
 		 */
 		keyTextField.addKeyListener(new KeyAdapter() {
-			
 			@Override
 			public void keyTyped(KeyEvent e) {
-							
 				keyToLongWarningLabel.setVisible(false);
 				if(keyTextField.getText().length() > 5) {
-					
 					e.consume();
 					keyToLongWarningLabel.setVisible(true);
-					
 				}
-				
 			}
-			
 		});
 		
 		keyTextField.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
-				
 				if(keyToLongWarningLabel.isVisible()) {
-					
 					keyToLongWarningLabel.setVisible(false);
-					
 				}
-				
 			}
 		});
 		
 		// Load text from file into inputtextarea
 		loadFileButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 				int result = fileChooser.showOpenDialog(frmMyCryptifyTool);
-				
 				if (result == JFileChooser.APPROVE_OPTION) {
 				    File selectedFile = fileChooser.getSelectedFile();
 				    try {
@@ -551,27 +435,20 @@ public class WindowBuilder {
 				    	JOptionPane.showMessageDialog(frmMyCryptifyTool, "The file \"" + selectedFile.getName() + "\" could not be read properly!", "Error", JOptionPane.ERROR_MESSAGE);
 				        error.printStackTrace();
 				      }
-				    
 				}
-				
 			}
 		});
 		
 		// Safe text from outputtextarea to file
 		safeFileButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setDialogTitle("Save file");   
-				 
 				int userSelection = fileChooser.showSaveDialog(frmMyCryptifyTool);
-				 
 				if (userSelection == JFileChooser.APPROVE_OPTION) {
 				    File fileToSave = fileChooser.getSelectedFile();
-				    
 				    try {
 				        if (fileToSave.createNewFile() == true) {
-				        	
 				        	try {
 						        FileWriter myWriter = new FileWriter(fileToSave);
 						        myWriter.write(outputTextArea.getText());
@@ -583,11 +460,8 @@ public class WindowBuilder {
 						    	JOptionPane.showMessageDialog(frmMyCryptifyTool, "The file: \"" + fileToSave.getName() + "\" could not be saved \nto: " + fileToSave.getAbsolutePath(), "Error", JOptionPane.ERROR_MESSAGE);
 						        error.printStackTrace();
 						      }
-				        	
 				        } else {
-				        	
 				        	int reply = JOptionPane.showConfirmDialog(frmMyCryptifyTool, "The file: \"" + fileToSave.getName() + "\" already exists \nin " + fileToSave.getAbsolutePath() + " \n\n Want to overwrite the existing file?", "Choose", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-				        	
 				        	if (reply == JOptionPane.YES_OPTION) {
 				        		try {
 							        FileWriter myWriter = new FileWriter(fileToSave);
@@ -601,23 +475,18 @@ public class WindowBuilder {
 							        error.printStackTrace();
 							      }
 				        		loadedFileLabel.setVisible(false);
-				        		
 				        	} else {
 				        		loadedFileLabel.setVisible(false);
 				        	}
-				        	
 				        }
 				      } catch (IOException error) {
 				    	  loadedFileLabel.setVisible(false);
 				    	  JOptionPane.showMessageDialog(frmMyCryptifyTool, "The file \"" + fileToSave.getName() + "\" could not be created!", "Error", JOptionPane.ERROR_MESSAGE);
 				    	  error.printStackTrace();
 				      }
-				    
 				}
-				
 			}
 		});
-		
 	}
 	
 	/*
@@ -638,5 +507,47 @@ public class WindowBuilder {
 	
 	public void setOutputText(String text) {
 		outputTextArea.setText(text);
+	}
+	
+	/*
+	 * Enable Drag and Drop for inputTextArea
+	 */
+	
+	private void enableDragAndDrop() {
+		new DropTarget(inputTextArea, new DropTargetListener() {
+		    @SuppressWarnings("rawtypes")
+			@Override
+		    public void drop(DropTargetDropEvent dtde) {
+			    dtde.acceptDrop(dtde.getDropAction());
+					java.util.List list;
+					try {
+						list = (java.util.List) dtde.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
+						File file=(File)list.get(0);
+						try {
+							inputTextArea.read(new FileReader(file), null);
+						} catch (IOException error) {
+							error.printStackTrace();
+						}
+					} catch (UnsupportedFlavorException error) {
+						error.printStackTrace();
+					} catch (IOException error) {
+						error.printStackTrace();
+					}
+				    dtde.dropComplete(true);
+			}
+		    @Override
+		    public void dragEnter(DropTargetDragEvent dtde) {
+		    }
+		    @Override
+		    public void dragOver(DropTargetDragEvent dtde) {
+		    }
+		    @Override
+		    public void dropActionChanged(DropTargetDragEvent dtde) {
+		    }
+		    @Override
+		    public void dragExit(DropTargetEvent dte) {
+		    }
+
+		});
 	}
 }
