@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -18,6 +19,11 @@ import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.Toolkit;
@@ -32,11 +38,16 @@ public class WindowBuilder {
 
 	private JFrame frmMyCryptifyTool;
 	private JTextField keyTextField;
+	private JTextArea inputTextArea;
+	private JTextArea outputTextArea;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		
+		
 		
 		EventQueue.invokeLater(new Runnable() {
 			
@@ -100,7 +111,7 @@ public class WindowBuilder {
 		inputPane.setFont(new Font("Arial", Font.PLAIN, 11));
 		inputPane.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "1. Your text input", TitledBorder.LEADING, TitledBorder.TOP, null, Color.DARK_GRAY));
 		inputPane.setBackground(Color.LIGHT_GRAY);
-		inputPane.setBounds(10, 76, 869, 174);
+		inputPane.setBounds(10, 77, 869, 174);
 		frmMyCryptifyTool.getContentPane().add(inputPane);
 		inputPane.setLayout(null);
 		
@@ -108,7 +119,7 @@ public class WindowBuilder {
 		inputScrollPane.setBounds(10, 21, 849, 142);
 		inputPane.add(inputScrollPane);
 		
-		JTextArea inputTextArea = new JTextArea();
+		inputTextArea = new JTextArea();
 		inputTextArea.setFont(new Font("Arial", Font.PLAIN, 13));
 		inputTextArea.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		inputTextArea.setWrapStyleWord(true);
@@ -129,7 +140,7 @@ public class WindowBuilder {
 		outputScrollPane.setBounds(10, 25, 849, 138);
 		outputPanel.add(outputScrollPane);
 		
-		JTextArea outputTextArea = new JTextArea();
+		outputTextArea = new JTextArea();
 		outputTextArea.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		outputTextArea.setWrapStyleWord(true);
 		outputTextArea.setToolTipText("The encrypted or decrypted text.");
@@ -141,7 +152,7 @@ public class WindowBuilder {
 		keyPanel.setFont(new Font("Arial", Font.PLAIN, 11));
 		keyPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "2. Your secret key", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(64, 64, 64)));
 		keyPanel.setBackground(Color.LIGHT_GRAY);
-		keyPanel.setBounds(10, 261, 869, 54);
+		keyPanel.setBounds(10, 280, 869, 54);
 		frmMyCryptifyTool.getContentPane().add(keyPanel);
 		keyPanel.setLayout(null);
 		
@@ -164,7 +175,7 @@ public class WindowBuilder {
 		optionsPane.setFont(new Font("Arial", Font.PLAIN, 11));
 		optionsPane.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "3. Options", TitledBorder.LEADING, TitledBorder.TOP, null, Color.DARK_GRAY));
 		optionsPane.setBackground(Color.LIGHT_GRAY);
-		optionsPane.setBounds(10, 326, 869, 82);
+		optionsPane.setBounds(10, 335, 869, 82);
 		frmMyCryptifyTool.getContentPane().add(optionsPane);
 		optionsPane.setLayout(null);
 		
@@ -183,7 +194,7 @@ public class WindowBuilder {
 		decryptButton.setForeground(Color.DARK_GRAY);
 		decryptButton.setToolTipText("Decrypts the text with the given key.");
 		decryptButton.setEnabled(false);
-		decryptButton.setBounds(241, 34, 89, 23);
+		decryptButton.setBounds(225, 34, 89, 23);
 		optionsPane.add(decryptButton);
 		
 		JRadioButton caesarCipherRadioButton = new JRadioButton("Caesar cipher");
@@ -192,7 +203,7 @@ public class WindowBuilder {
 		caesarCipherRadioButton.setForeground(Color.DARK_GRAY);
 		caesarCipherRadioButton.setBackground(Color.LIGHT_GRAY);
 		caesarCipherRadioButton.setFont(new Font("Arial", Font.PLAIN, 13));
-		caesarCipherRadioButton.setBounds(16, 23, 109, 23);
+		caesarCipherRadioButton.setBounds(16, 23, 134, 23);
 		optionsPane.add(caesarCipherRadioButton);
 		
 		JRadioButton polyalphabeticRadioButton = new JRadioButton("Polyalphabetic");
@@ -203,114 +214,135 @@ public class WindowBuilder {
 		polyalphabeticRadioButton.setFont(new Font("Arial", Font.PLAIN, 13));
 		polyalphabeticRadioButton.setBounds(16, 49, 120, 23);
 		optionsPane.add(polyalphabeticRadioButton);
-		encryptButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				if(caesarCipherRadioButton.isSelected() == true) {
-					
-					Boolean isDigit = false;
-					
-					for(int i = 0; i < keyTextField.getText().length(); i++) {
-						
-						if(Character.isDigit(keyTextField.getText().charAt(i))) {
-							
-							isDigit = true;
-							
-						} else {
-							
-							isDigit = false;
-							break;
-							
-						}
-						
-					}
-										
-					if(isDigit == true) {
-						
-						outputTextArea.setText(Crypto.encryptCaesarCipher(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
-						inputTextArea.setText("");
-						keyTextField.setText("");
-					
-					} else {
-						
-						JOptionPane.showMessageDialog(frmMyCryptifyTool, "The caesar cipher does only allow numbers to be used as a key", null, JOptionPane.ERROR_MESSAGE);
-						
-					}					
-					
-				} else if(polyalphabeticRadioButton.isSelected() == true) {
-					
-					outputTextArea.setText(Crypto.encryptPolyalphabetic(inputTextArea.getText().trim(), keyTextField.getText()));
-					inputTextArea.setText("");
-					keyTextField.setText("");
-					
-				} else {
-					
-					JOptionPane.showMessageDialog(frmMyCryptifyTool, "Please choose an En-/Decryption method!", null, JOptionPane.ERROR_MESSAGE);
-					
-				}
-				
-			}
-			
-		});
-		decryptButton.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				
-				if(caesarCipherRadioButton.isSelected() == true) {
-					
-					Boolean isDigit = false;
-					
-					for(int i = 0; i < keyTextField.getText().length(); i++) {
-						
-						if(Character.isDigit(keyTextField.getText().charAt(i))) {
-							
-							isDigit = true;
-							
-						} else {
-							
-							isDigit = false;
-							break;
-							
-						}
-						
-					}
-										
-					if(isDigit == true) {
-						
-						outputTextArea.setText(Crypto.decryptCaesarCipher(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
-						inputTextArea.setText("");
-						keyTextField.setText("");
-					
-					} else {
-						
-						JOptionPane.showMessageDialog(frmMyCryptifyTool, "The caesar cipher does only allow numbers to be used as a key", null, JOptionPane.ERROR_MESSAGE);
-						
-					}
-					
-				} else if(polyalphabeticRadioButton.isSelected() == true) {
-					
-					outputTextArea.setText(Crypto.decryptPolyalphabetic(inputTextArea.getText().trim(), keyTextField.getText()));
-					inputTextArea.setText("");
-					keyTextField.setText("");
-					
-				} else {
-					
-					JOptionPane.showMessageDialog(frmMyCryptifyTool, "Please choose an En-/Decryption method!", null, JOptionPane.ERROR_MESSAGE);
-					
-				}
-				
-			}
-			
-		});
-		frmMyCryptifyTool.setBounds(100, 100, 908, 646);
+		
+		JButton loadFileButton = new JButton("Load file");
+		loadFileButton.setToolTipText("Load text from textfile");
+		loadFileButton.setBounds(751, 252, 117, 29);
+		frmMyCryptifyTool.getContentPane().add(loadFileButton);
+		
+		JButton safeFileButton = new JButton("Safe as file");
+		safeFileButton.setToolTipText("Safe output to file");
+		safeFileButton.setBounds(751, 594, 117, 29);
+		frmMyCryptifyTool.getContentPane().add(safeFileButton);
+		
+		JLabel loadedFileLabel = new JLabel("");
+		loadedFileLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		loadedFileLabel.setHorizontalTextPosition(SwingConstants.RIGHT);
+		loadedFileLabel.setVisible(false);
+		loadedFileLabel.setBounds(470, 257, 269, 16);
+		frmMyCryptifyTool.getContentPane().add(loadedFileLabel);
+		frmMyCryptifyTool.setBounds(100, 100, 890, 664);
 		frmMyCryptifyTool.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
-		/**
+		/*
 		 * Event Listeners
 		 */
 		
-		/**
+		// Encrypt inputtext on encryptButton press
+				encryptButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						if(caesarCipherRadioButton.isSelected() == true) {
+							
+							Boolean isDigit = false;
+							
+							for(int i = 0; i < keyTextField.getText().length(); i++) {
+								
+								if(Character.isDigit(keyTextField.getText().charAt(i))) {
+									
+									isDigit = true;
+									
+								} else {
+									
+									isDigit = false;
+									break;
+									
+								}
+								
+							}
+												
+							if(isDigit == true) {
+								
+								outputTextArea.setText(Crypto.encryptCaesarCipher(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
+								inputTextArea.setText("");
+								keyTextField.setText("");
+							
+							} else {
+								
+								JOptionPane.showMessageDialog(frmMyCryptifyTool, "The caesar cipher does only allow numbers to be used as a key", null, JOptionPane.ERROR_MESSAGE);
+								
+							}					
+							
+						} else if(polyalphabeticRadioButton.isSelected() == true) {
+							
+							outputTextArea.setText(Crypto.encryptPolyalphabetic(inputTextArea.getText().trim(), keyTextField.getText()));
+							inputTextArea.setText("");
+							keyTextField.setText("");
+							
+						} else {
+							
+							JOptionPane.showMessageDialog(frmMyCryptifyTool, "Please choose an En-/Decryption method!", null, JOptionPane.ERROR_MESSAGE);
+							
+						}
+						
+					}
+					
+				});
+				
+				// Decrypt inputtext on decryptButton press
+				decryptButton.addActionListener(new ActionListener() {
+					
+					public void actionPerformed(ActionEvent e) {
+						
+						if(caesarCipherRadioButton.isSelected() == true) {
+							
+							Boolean isDigit = false;
+							
+							for(int i = 0; i < keyTextField.getText().length(); i++) {
+								
+								if(Character.isDigit(keyTextField.getText().charAt(i))) {
+									
+									isDigit = true;
+									
+								} else {
+									
+									isDigit = false;
+									break;
+									
+								}
+								
+							}
+												
+							if(isDigit == true) {
+								
+								outputTextArea.setText(Crypto.decryptCaesarCipher(inputTextArea.getText().trim(), Integer.parseInt(keyTextField.getText())));
+								inputTextArea.setText("");
+								keyTextField.setText("");
+							
+							} else {
+								
+								JOptionPane.showMessageDialog(frmMyCryptifyTool, "The caesar cipher does only allow numbers to be used as a key", null, JOptionPane.ERROR_MESSAGE);
+								
+							}
+							
+						} else if(polyalphabeticRadioButton.isSelected() == true) {
+							
+							outputTextArea.setText(Crypto.decryptPolyalphabetic(inputTextArea.getText().trim(), keyTextField.getText()));
+							inputTextArea.setText("");
+							keyTextField.setText("");
+							
+						} else {
+							
+							JOptionPane.showMessageDialog(frmMyCryptifyTool, "Please choose an En-/Decryption method!", null, JOptionPane.ERROR_MESSAGE);
+							
+						}
+						
+					}
+					
+				});
+		
+		/*
 		 * Enables or Disables the Encrypt/Decrypt Buttons if inputTextArea or keyTextField are emtpy
 		 * 
 		 * Eventlister is attached inputTextArea
@@ -372,7 +404,7 @@ public class WindowBuilder {
 			
 		});
 		
-		/**
+		/*
 		 * Enables or Disables the Encrypt/Decrypt Buttons if inputTextArea or keyTextField are emtpy
 		 * 
 		 * Eventlister is attached keyTextField
@@ -463,8 +495,8 @@ public class WindowBuilder {
 			}
 		});
 		
-		/**
-		 * Consumes everything thats longer than 6 chars
+		/*
+		 * Consumes everything thats longer than 6 chars and shows warning message
 		 */
 		keyTextField.addKeyListener(new KeyAdapter() {
 			
@@ -496,5 +528,115 @@ public class WindowBuilder {
 			}
 		});
 		
+		// Load text from file into inputtextarea
+		loadFileButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				int result = fileChooser.showOpenDialog(frmMyCryptifyTool);
+				
+				if (result == JFileChooser.APPROVE_OPTION) {
+				    File selectedFile = fileChooser.getSelectedFile();
+				    try {
+				        Scanner myReader = new Scanner(selectedFile);
+				        while (myReader.hasNextLine()) {
+				          String data = myReader.nextLine();
+				          loadedFileLabel.setText("Selected file: \"" + selectedFile.getName() + "\"");
+				          loadedFileLabel.setVisible(true);
+				          inputTextArea.setText(data);
+				        }
+				        myReader.close();
+				      } catch (FileNotFoundException error) {
+				    	JOptionPane.showMessageDialog(frmMyCryptifyTool, "The file \"" + selectedFile.getName() + "\" could not be read properly!", "Error", JOptionPane.ERROR_MESSAGE);
+				        error.printStackTrace();
+				      }
+				    
+				}
+				
+			}
+		});
+		
+		// Safe text from outputtextarea to file
+		safeFileButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setDialogTitle("Save file");   
+				 
+				int userSelection = fileChooser.showSaveDialog(frmMyCryptifyTool);
+				 
+				if (userSelection == JFileChooser.APPROVE_OPTION) {
+				    File fileToSave = fileChooser.getSelectedFile();
+				    
+				    try {
+				        if (fileToSave.createNewFile() == true) {
+				        	
+				        	try {
+						        FileWriter myWriter = new FileWriter(fileToSave);
+						        myWriter.write(outputTextArea.getText());
+						        myWriter.close();
+						        loadedFileLabel.setVisible(false);
+						        JOptionPane.showMessageDialog(frmMyCryptifyTool, "The file: \"" + fileToSave.getName() + "\" was successfully saved \nto: " + fileToSave.getAbsolutePath(), "Info", JOptionPane.INFORMATION_MESSAGE);
+				        	} catch (IOException error) {
+				        		loadedFileLabel.setVisible(false);
+						    	JOptionPane.showMessageDialog(frmMyCryptifyTool, "The file: \"" + fileToSave.getName() + "\" could not be saved \nto: " + fileToSave.getAbsolutePath(), "Error", JOptionPane.ERROR_MESSAGE);
+						        error.printStackTrace();
+						      }
+				        	
+				        } else {
+				        	
+				        	int reply = JOptionPane.showConfirmDialog(frmMyCryptifyTool, "The file: \"" + fileToSave.getName() + "\" already exists \nin " + fileToSave.getAbsolutePath() + " \n\n Want to overwrite the existing file?", "Choose", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				        	
+				        	if (reply == JOptionPane.YES_OPTION) {
+				        		try {
+							        FileWriter myWriter = new FileWriter(fileToSave);
+							        myWriter.write(outputTextArea.getText());
+							        myWriter.close();
+							        loadedFileLabel.setVisible(false);
+							        JOptionPane.showMessageDialog(frmMyCryptifyTool, "The new file: \"" + fileToSave.getName() + "\" was successfully saved \nto: " + fileToSave.getAbsolutePath(), "Info", JOptionPane.INFORMATION_MESSAGE);
+							      } catch (IOException error) {
+							    	  loadedFileLabel.setVisible(false);
+							    	JOptionPane.showMessageDialog(frmMyCryptifyTool, "The new file: \"" + fileToSave.getName() + "\" could not be saved \nto: " + fileToSave.getAbsolutePath(), "Error", JOptionPane.ERROR_MESSAGE);
+							        error.printStackTrace();
+							      }
+				        		loadedFileLabel.setVisible(false);
+				        		
+				        	} else {
+				        		loadedFileLabel.setVisible(false);
+				        	}
+				        	
+				        }
+				      } catch (IOException error) {
+				    	  loadedFileLabel.setVisible(false);
+				    	  JOptionPane.showMessageDialog(frmMyCryptifyTool, "The file \"" + fileToSave.getName() + "\" could not be created!", "Error", JOptionPane.ERROR_MESSAGE);
+				    	  error.printStackTrace();
+				      }
+				    
+				}
+				
+			}
+		});
+		
+	}
+	
+	/*
+	 * Getters and setters (May be used later)
+	 */
+	
+	public String getInputText() {
+		return inputTextArea.getText();
+	}
+	
+	public void setInputText(String text) {
+		inputTextArea.setText(text);
+	}
+	
+	public String getOutputText() {
+		return outputTextArea.getText();
+	}
+	
+	public void setOutputText(String text) {
+		outputTextArea.setText(text);
 	}
 }
