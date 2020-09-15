@@ -80,7 +80,7 @@ public class WindowBuilder {
 		frmMyCryptifyTool = new JFrame();
 		frmMyCryptifyTool.setBackground(Color.WHITE);
 		frmMyCryptifyTool.setIconImage(Toolkit.getDefaultToolkit().getImage(WindowBuilder.class.getResource("/com/mycryptifytool/Key.png")));
-		frmMyCryptifyTool.setTitle("MyCryptifyTool");
+		frmMyCryptifyTool.setTitle("MyJavaCryptifyTool");
 		frmMyCryptifyTool.setResizable(false);
 		frmMyCryptifyTool.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frmMyCryptifyTool.getContentPane().setLayout(null);
