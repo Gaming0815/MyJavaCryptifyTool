@@ -188,7 +188,7 @@ public class WindowBuilder {
 		decryptButton.setForeground(Color.DARK_GRAY);
 		decryptButton.setToolTipText("Decrypts the text with the given key.");
 		decryptButton.setEnabled(false);
-		decryptButton.setBounds(225, 34, 89, 23);
+		decryptButton.setBounds(241, 34, 89, 23);
 		optionsPane.add(decryptButton);
 		
 		JRadioButton caesarCipherRadioButton = new JRadioButton("Caesar cipher");
