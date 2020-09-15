@@ -91,7 +91,7 @@ public class WindowBuilder {
 		frmMyCryptifyTool.getContentPane().add(headlinePanel);
 		headlinePanel.setLayout(null);
 		
-		JLabel headlineLabel = new JLabel("MyCryptifyTool");
+		JLabel headlineLabel = new JLabel("MyJavaCryptifyTool");
 		headlineLabel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		headlineLabel.setForeground(Color.DARK_GRAY);
 		headlineLabel.setBackground(Color.WHITE);
