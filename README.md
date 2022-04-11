@@ -9,7 +9,3 @@ This Tool allows you to en- and decrypt given text using the caesar or polyalpha
 ## What you should know
 
 The encryption methods used are outdated and definitely not secure at all!
-
----
-
-For any further question contact me at [i.niklas.fischer@iCloud.com](mailto:i.niklas.fischer@iCloud.com)
